@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <!-- 地面 -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+    <!-- 光照 -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+    <!-- 静态障碍物1 -->
+    <model name="obstacle1">
+      <pose>3 0 1 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- 静态障碍物2 -->
+    <model name="obstacle2">
+      <pose>0 3 1 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- 静态障碍物3 -->
+    <model name="obstacle3">
+      <pose>-3 -2 1 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- 风扰动插件 -->
+    <plugin name="wind_plugin" filename="libgazebo_wind_plugin.so">
+      <frameId>world</frameId>
+      <robotNamespace/>
+      <windDirection>1 0 0</windDirection>
+      <windForceMean>1.0</windForceMean>
+      <windForceVariance>0.5</windForceVariance>
+      <windGustDirection>1 0 0</windGustDirection>
+      <windGustDuration>2</windGustDuration>
+      <windGustStart>10</windGustStart>
+      <windGustForceMean>3</windGustForceMean>
+      <windGustForceVariance>1</windGustForceVariance>
+    </plugin>
+    
+    <!-- 物理引擎设置 -->
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+  </world>
+</sdf>

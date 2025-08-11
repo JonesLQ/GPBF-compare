@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- MAVROS配置 -->
+    <arg name="fcu_url" default="udp://:14540@localhost:14557"/>
+    <arg name="tgt_system" default="1" />
+    <arg name="tgt_component" default="1" />
+    <arg name="log_output" default="screen" />
+    <arg name="world" default="$(find gpbf_gazebo)/worlds/obstacles.world"/>
+    <arg name="sdf" default="$(find mavlink_sitl_gazebo)/models/iris/iris.sdf"/>
+    <arg name="model" default="iris"/>
+    
+    <!-- 启动MAVROS -->
+    <include file="$(find mavros)/launch/node.launch">
+        <arg name="pluginlists_yaml" value="$(find mavros)/launch/px4_pluginlists.yaml" />
+        <arg name="config_yaml" value="$(find mavros)/launch/px4_config.yaml" />
+        <arg name="fcu_url" value="$(arg fcu_url)" />
+        <arg name="gcs_url" value="" />
+        <arg name="tgt_system" value="$(arg tgt_system)" />
+        <arg name="tgt_component" value="$(arg tgt_component)" />
+        <arg name="log_output" value="$(arg log_output)" />
+    </include>
+    
+    <!-- PX4 SITL和Gazebo -->
+    <include file="$(find px4)/launch/posix_sitl.launch">
+        <arg name="world" value="$(arg world)"/>
+        <arg name="sdf" value="$(arg sdf)"/>
+        <arg name="verbose" value="true"/>
+    </include>
+</launch>

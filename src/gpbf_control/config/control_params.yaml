@@ -1,0 +1,23 @@
+# GP模型参数
+gp:
+  max_samples: 100
+  
+# PBF控制器参数
+pbf:
+  alpha_obs: 5.0
+  alpha_obs_nominal: 5.0
+  alpha_track: 2.0
+  r_safe_nominal: 0.5
+  beta_uncertain: 0.5
+  track_margin: 0.5
+  vel_scale: 0.2
+  
+# 预测性CBF参数
+pcbf:
+  max_samples: 1000
+  learning_rate: 0.01
+  
+# 系统参数
+system:
+  mass: 2.5
+  gravity: 9.81

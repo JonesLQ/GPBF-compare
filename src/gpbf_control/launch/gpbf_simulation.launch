@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- 加载参数 -->
+    <rosparam command="load" file="$(find gpbf_control)/config/control_params.yaml" />
+    
+    <!-- 启动PX4 SITL和Gazebo仿真 -->
+    <include file="$(find gpbf_gazebo)/launch/px4_sitl.launch" />
+    
+    <!-- 启动障碍物发布器 -->
+    <node pkg="gpbf_control" type="obstacle_publisher" name="obstacle_publisher" output="screen" />
+    
+    <!-- 启动轨迹生成器 -->
+    <node pkg="gpbf_control" type="trajectory_generator" name="trajectory_generator" output="screen">
+        <param name="traj/a" value="4.0" />
+        <param name="traj/b" value="2.0" />
+        <param name="traj/h" value="1.5" />
+        <param name="traj/omega" value="0.1" />
+        <param name="traj/rate" value="20.0" />
+    </node>
+    
+    <!-- 启动GP-PBF控制器 -->
+    <node pkg="gpbf_control" type="gpbf_control_node" name="gpbf_control_node" output="screen">
+        <param name="control/rate" value="50.0" />
+        <param name="frames/base" value="map" />
+    </node>
+    
+    <!-- 启动RViz可视化 -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find gpbf_control)/rviz/gpbf_viz.rviz" />
+</launch>
